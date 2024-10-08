@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 
 
+
 @Controller
 public class SpaDayController {
 
@@ -27,7 +28,7 @@ public class SpaDayController {
     @GetMapping(value="")
     @ResponseBody
     public String customerForm () {
-        String html = "<form method = 'post'>" +
+        String html = "<form action = '/menu' method = 'post'>" +
                 "Name: <br>" +
                 "<input type = 'text' name = 'name'>" +
                 "<br>Skin type: <br>" +
@@ -41,13 +42,14 @@ public class SpaDayController {
                 "<select name = 'manipedi'>" +
                 "<option value = 'manicure'>Manicure</option>" +
                 "<option value = 'pedicure'>Pedicure</option>" +
+                "<option value = 'both'>Both</option>" +
                 "</select><br>" +
                 "<input type = 'submit' value = 'Submit'>" +
                 "</form>";
         return html;
     }
 
-    @PostMapping(value="")
+    @PostMapping(value="/menu")
     public String spaMenu(@RequestParam String name, @RequestParam String skintype, @RequestParam String manipedi, Model model) {
 
         ArrayList<String> facials = new ArrayList<>();
@@ -63,6 +65,25 @@ public class SpaDayController {
             }
         }
 
+        model.addAttribute("name", name);
+        model.addAttribute("skintype", skintype);
+        model.addAttribute("manipedi", manipedi);
+
+        model.addAttribute("appropriateFacials", appropriateFacials);
+
+        ArrayList<String> polishColorChoices = new ArrayList<>();
+        polishColorChoices.add("#dc143c");
+        polishColorChoices.add("#3cb371");
+        polishColorChoices.add("#daa520");
+        polishColorChoices.add("#6a5acd");
+        polishColorChoices.add("#ff7f50");
+        polishColorChoices.add("#ff6347");
+        polishColorChoices.add("#00bfff");
+        polishColorChoices.add("#da70d6");
+        polishColorChoices.add("#4682b4");
+        polishColorChoices.add("#c71585");
+
+        model.addAttribute("polishColorChoices", polishColorChoices);
         return "menu";
     }
 }
