@@ -1,63 +1,56 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th = "http://www.thymeleaf.org/">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
     <title>Spa Menu</title>
-    <link href="../static/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet" />
+    <link href="../static/styles.css" th:href="@{/static/styles.css}" rel="stylesheet" />
 </head>
 <body>
 <h1>My Super Fancy Spa</h1>
-<div id = "clientProfile">
-    <h2> “My profile” </h2>
-    <p th:text="${name}">   </p>
-    <p th:text="${skintype}">   </p>
-    <p th:text="${manipedi}">   </p>
-
+<div id="clientProfile">
+    <h2>My Profile</h2>
+    <p th:text="${name}"></p>
+    <p th:text="${skintype}"></p>
+    <p th:text="${manipedi}"></p>
 </div>
 
-<div id = "servicesMenu">
+<div id="servicesMenu">
     <table>
-
         <th:block th:each="service : ${appropriateFacials}">
             <tr>
                 <td th:text="${service}"></td>
             </tr>
         </th:block>
-
     </table>
 </div>
 
-
-<div th:if = "${manipedi.equals('manicure')}" >
-    <h3>"Manicure"</h3>
+<div th:if="${manipedi.equals('manicure')}">
+    <h3>Manicure</h3>
     <p th:replace="fragments :: manicureDescription"></p>
 </div>
 
-<div th:if = "${manipedi.equals('pedicure')}" >
-    <h3>"Pedicure"</h3>
+<div th:if="${manipedi.equals('pedicure')}">
+    <h3>Pedicure</h3>
     <p th:replace="fragments :: pedicureDescription"></p>
 </div>
 
-<div th:if = "${manipedi.equals('both')}" >
-    <h3>"Pedicure & Manicure"</h3>
+<div th:if="${manipedi.equals('both')}">
+    <h3>Pedicure & Manicure</h3>
     <p th:replace="fragments :: pedicureDescription"></p>
     <p th:replace="fragments :: manicureDescription"></p>
 </div>
-
 
 <footer>
-    <div> Ask about our hottest new colors for your manipedi!</div>
+    <div>Ask about our hottest new colors for your manipedi!</div>
     <div id="polish-colors">
         <table>
-
-            <th:block th:each="polish : ${polishColorChoices}">
-                <div class="polish-sample"  th:style="|background: ${polish}|"> </div>
-            </th:block>
-
+            <tr th:each="polish : ${polishColorChoices}">
+                <td>
+                    <div class="polish-sample" th:style="|background: ${polish}|"></div>
+                </td>
+            </tr>
         </table>
     </div>
 </footer>
-
-
 </body>
 </html>
